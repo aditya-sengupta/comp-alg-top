@@ -1,0 +1,21 @@
+\setcourse{Computational Algebraic Topology}
+\usepackage{minitoc}
+
+\renewenvironment{boxedtext}[2]{\begin{mdframed}[%
+    hidealllines=true,%
+    backgroundcolor=#2,%
+    innertopmargin=\framedinnertopmargin,%
+    innerleftmargin=\framedinnerleftmargin,%
+    innerrightmargin=1em%
+    ]%
+    \textbf{#1}%
+    }% begin code
+    {\end{mdframed}\vspace{1em}} % end code
+
+\newenvironment{wipdefinition}[0]
+{\refstepcounter{example}\vspace{1em plus 1em}\begin{boxedtext}{Work-In-Progress Definition}{purple!7}}%\setlength{\parskip}{0em}}
+{\end{boxedtext}\vspace{-1em plus 1em}}
+
+\renewenvironment{definition}[0]
+{\refstepcounter{example}\vspace{1em plus 1em}\begin{boxedtext}{Definition}{blue!7}}%\setlength{\parskip}{0em}}
+{\end{boxedtext}\vspace{-1em plus 1em}}

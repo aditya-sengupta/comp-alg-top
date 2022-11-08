@@ -1,0 +1,80 @@
+\documentclass{lec}
+\ifthenelse{\boolean{done}}{\usepackage{compalgtop}}{}
+\ifthenelse{\boolean{done}}{\setcounter{section}{2}}{}
+
+\begin{document}
+    \section{Placing simplicial complexes in space}
+
+    It isn't very useful to just have the definition of a simplicial complex without giving it some notion of geometry, so that it can describe things that lie in, let's say, Euclidean space. In this section, we'll do exactly that!
+
+    The most natural thing to do would be to take our vertex set $V$ and assign a point in space to each vertex $v$ in $V$. That is, if we had vertices $V = \set{1, 2, 3}$, we'd just say vertex 1 is at point $x_1$, 2 is at $x_2$, and 3 is at $x_3$, where these points are in $\R^n$ for some convenient choice of $n$.
+
+    But in that case, what's $K$? A geometric interpretation of a SC is only useful if we can actually understand the substantial part of the structure of $K$ through it. Otherwise I haven't done any math; at best, I've made a scatter plot. 
+
+    It doesn't seem entirely obvious what meaning we might be able to assign to each simplex (which is what we'll call an element of an SC; the plural will be `simplices' or `simplexes' depending on how pretentious I'm feeling) in the geometric setting. You might have an idea, but let's pretend we're completely stuck and try and build up something new.
+
+    Let's look at the smallest SC we could possibly make with the three vertices I listed before, which is the one that has only the three singleton simplices: $K = \set{\set{1}, \set{2}, \set{3}}$. We don't have to encode any connections here, so just placing these at certain points in space \textit{would} be okay and in fact what we want to do. So far so good: we can say the \textit{geometric realization} of $K$ is just this set of corresponding points. For the moment, we'll put off the question of how we pick these points, and just trust that there's some way to do them.
+
+    How do we make this more complicated and see how we might be able to handle that? We've exhausted all the 1-element simplices we could use, so let's try a 2-element simplex. A geometric way of saying ``these two things are related'' might be to draw a line between them. In our 3-element case, the only simplex we could add after filling in all the 2-element ones is $\set{1, 2, 3}$, which seems to suggest the vertices of a triangle. It seems reasonable that ``draw a fully connected set of three points'' would lead to us drawing a triangle.
+
+    {\color{blue} Quick notational aside: I don't want to write out all the subsets of a set of integers save one, so I'm going to introduce the notation $P(A)$ for ``the set of subsets of $A$'' (this is called the \textit{power set}), $[n]$ for the set $\set{1, 2, \dots, n}$, and $A \setminus B$ for ``the set $A$ but without the set $B$''. These are all pretty much standard.}
+
+    But wait -- how do we distinguish between the simplicial complex $K = P([3])$ and $K = P([3]) \setminus \set{1, 2, 3}$? One includes the triangle and one doesn't, so they should have different geometric realizations. Yet if we draw them out (and this is something I'll do on a day I'm less lazy) it seems like they look the same.
+
+    The resolution here is to treat the interior of the triangle as a distinct entity from anything that's created as an artefact of other simplexes. In a way, the three lines $\set{1, 2}, \set{1, 3}, \set{2, 3}$ don't ``know about'' the triangle; they're just lines that happen to join up and draw the eye. It's on us to separately say the triangle is an entity worthy of our attention, by including $\set{1, 2, 3}$ as its own object in the complex. 
+
+    It seems like this example suggests the geometric realizations of simplexes can't cause us to believe that other simplexes are worthy of consideration. But is this necessarily true? Not really -- if you think about the line $\set{1, 2}$, it draws our attention to 1 and 2 as their own entities. You don't know just from seeing $\set{1}, \set{2}$ in $K$ that they're connected, but you know from seeing $\set{1, 2}$ both that they're connected and that they're worth our attention individually. 
+    
+    Extending this idea, say we had $K = \set{[3]}$. This is a simplicial complex that's just the interior of the triangle between three points. Looking at it, our attention is drawn to the vertices and the edges, as that's what uniquely describes our triangle. If we've got this overall connection, shouldn't we also want to write down the sub-connections that get us that larger structure? Or put another way, aren't 1 and 2 connected because they're one of the edges of the triangle $\set{1, 2, 3}$, meaning $\set{1, 2}$ should be in our simplex too?
+
+    I've possibly belabored my point a bit, but what I'm aiming for is that it should feel geometrically reasonable that subsets of simplexes are also simplexes. This is exactly one of the rules in our definition of a simplicial complex from last time! We've now motivated this rule from the symbolic angle and the geometric one (albeit in a somewhat overlapping way), which should strengthen our belief that we're making a connection that's useful and non-obvious. 
+
+    To recap, we're allowed to have the simplicial complex $K = P([3]) \setminus [3]$, with the edges but not the interior of the triangle, because smaller structures can't ``know'' they're building up to bigger ones in this framework we've built. But we're not allowed to have a simplicial complex contain $[3]$ and exclude any of its subsets, because its subsets make up the triangle's interior. Another way of thinking of it is: by choosing $K$, we're making a conscious choice of features to focus on and not to focus on. We're allowed to focus on just the outline of a triangle, but it's impossible to focus on just the interior of a triangle without thinking about the pieces that built it.
+
+    Now, of course, we're not going to have the topological police knocking on our door looking to arrest us for thinking about the interior of a triangle. We can do whatever we want. However, the question at hand isn't ``what are we allowed to do?'', the question is ``what does the structure of a simplicial complex permit us to easily and sensibly reason about?''. In this case, we're working with a structure we built up from individual points, so if we want to think about a higher-dimensional subspace, it had better come out of choices made on those points. Whenever you make a choice and tell it what you want it to do, it'll talk back and impose constraints on you.
+
+    By this point we're probably sick of thinking of triangles, so we can move on to the next dimension. If we had a fourth vertex, it's {\color{red} generally} not going to be in the plane of the first three, so connecting all of them and trying to consider the interior (and, as we've just established, all the triangular faces, all the edges, and all the vertices along with it) would give us a tetrahedron. Visualizing beyond this would require more dimensions than we're able to reason about, so for the moment we just say it works and call them $n-$dimensional triangles or tetrahedra. We'll say our geometric realization is the union of all these arbitrary-dimensional points, lines, surfaces, volumes, and so on that we generate in this way.
+    
+    Even though we can't actually draw this kind of thing out, we've built up a general enough structure that we can still reason about it. For instance, because of the rules we've set up and analogy with lower dimensions, we know a 4-D `tetrahedron' is bounded in some sense by the 3-D tetrahedra that make up its faces. If we \textit{could} draw out this 4-D object we'd know we'd have some sort of natural sense that it was constrained in space by 3D objects, in the same way that 1-D edges make up the 2-D triangle. As we get more and more complicated, the hope is we'll be able to just draw out the low-dimensional versions of things, and reason by analogy to dimensions we can't really hold in our head. This is much like how reasoning about linear algebra works for me, so hopefully you're willing to believe me on this! 
+
+    I colored that word {\color{red} generally} above because it's the kind of thing that's worth watching out for; it means a detail has been hand-waved! What if that fourth point \textit{is} in fact in the plane of the first three? For that matter, how do we even know we've got a whole plane out of the first three points to begin with? They could all be collinear and then we'd just have a single line.
+
+    We clearly don't \textit{always} get the progression from point to line to triangle to tetrahedron to weird 4D object to $\dots$. We may get it almost all of the time, but we'll always be able to make choices of where vertices go that don't allow that. It's at this point that we have to bring back the question we put off of how to pick the points where the vertices go. We don't want to be too prescriptive about this, because it's up to the user of the simplicial complex where they should put their points, but we should be able to come up with a way of saying whether an assignment of vertices to points in Euclidean space gives us these highest-possible-dimensional spanned spaces or not. 
+
+    Let's say a user of an SC defines a function $\phi: V \to \R^n$ to send their points in $V$ to Euclidean space. We're still not going to specify what $n$ is, and we'll instead hope for a natural choice or constraint to come up. We'd like it if no two vertices went to the same point, i.e. the map $\phi$ is \textit{injective} or one-to-one. But even injective maps could send everything to the same line and not give us these $n$-tetrahedra.\footnote{this terminology's getting pretty awkward, huh -- I'd better fix this soon.} 
+    
+    To restrict this further, we can exploit the fact that we're in Euclidean space and use the tool of \textit{linear independence}. Three points aren't collinear if any two of the vectors they make are linearly independent, and the same holds as we go to higher numbers of points. Pick $x_1$ as our reference point and look at the vectors $\set{x_2 - x_1, x_3 - x_1}$. If all the points were collinear, they'd point in the same direction and this set wouldn't be linearly independent. If they weren't, the set would be linearly independent. So we can say this is our second constraint. For convenience, we'll call this being \textit{affinely independent}.
+
+    \begin{align*}
+        \set{x_1, \dots, x_k} \text{ affinely independent} \iff \set{x_2 - x_1, \dots, x_k - x_1} \text{ linearly independent}.
+    \end{align*}
+
+    Neither of these constraints say we \textit{can't} use a geometric realization of an SC if they aren't met, just that it's not likely to be particularly useful. Let's encapsulate these two ideas (how to place an SC in Euclidean space, and how to decide if a placing of an SC is useful) into definitions to finish for today.
+
+    \begin{definition}
+        The \textbf{geometric realization} of a simplicial complex $K$ over a vertex set $V$ with respect to a function $\phi: V \to \R^n$ is
+
+        \begin{align*}
+            \abs{K}_\phi = \Union_{\sigma \in K} \abs{\sigma}_\phi
+        \end{align*}
+
+        where for each simplex $\sigma = \set{x_1, \dots, x_k}$ in $K$, $\abs{\sigma}_\phi$ is the subset of $\R^n$ defined by having $\phi(x_1), \dots, \phi(x_k)$ as its vertices.
+    \end{definition}
+
+    A more compact way of writing the last bit is to say $\abs{\sigma}_\phi$ is the \textit{geometric simplex} spanned by the points $\phi(x_1), \dots, \phi(x_k)$. This works in that you can read (point, line, triangle, tetrahedron) for `geometric simplex' and it'll work for the dimensions we're used to, but that felt a bit too circular to introduce as my definition.
+
+    Another missing point here is -- what does this union actually mean? It's not obvious how we'd take the union of a face and a line, for example. At a high level we can just accept it as ``it's this thing and also that thing'', but here's a more rigorous view. The common idea between points, lines, and areas in space is, given some description of them, we can look at any point in $\R^n$ and say ``that is/isn't in the point/line/area''.\footnote{This is a bit weird in the case of points, because does it make sense to say $x$ is in itself? In the simplicial complex context I'd say yes because what we're really asking is if $x$ is in $\set{x}$. If you're reticent to accept this, I think it's also fine to say this is just a convention we're picking to make this analogy work in all dimensions.} This suggests we can think of all of these as subsets of $\R^n$, each containing all the points that we'd say are `inside' the subset. How do we do this?
+
+    It's easy to say whether a point is another point just by asking if they're equal (are all their coordinates in some basis equal as real numbers?). To see whether a point is on a line, we need to know the two points defining the line. The point can either be one of those two, or it can be any one in between them, which we express using the affine combination $\set{tx_1 + (1 - t) x_2}$ for $0 \leq t \leq 1$. To future-proof this so we have coordinates that are independent of one another in the expression itself that we restrict later, I'll say it's $\set{t_1 x_1 + t_2 x_2 \mid t_1, t_2 \geq 0, t_1 + t_2 = 1}$.
+
+    Moving up to areas, we just have to add a direction in which we can move off the line, but not too far -- only within the constraints set by our new point $x_3$. This scaling up just needs us to add a new coordinate: we've got $\set{\sum_{i=1}^3 t_i x_i \mid t_i \geq 0, \sum_{i=1}^3 = 1}$. To unpack why this describes an area, we can think about enforcing, say, $t_1 = 0$; we know what we've got left is the line between $x_2$ and $x_3$. Repeating this with $t_2 = 0$ and $t_3 = 0$, we have all three lines that bound our triangle, and allowing all three to vary lets us walk over the interior (it can't cross the boundary without , and therefore without any coordinate being greater than 1)
+
+
+    Anyway, here's the second definition I promised.
+
+    \begin{definition}
+        We say $\phi$ is an \textit{affine embedding} of $K$ in $\R^n$ if $\phi$ is injective and if $\phi(V)$ is affinely independent.
+    \end{definition}
+
+    Roughly, being an affine embedding means we've written a faithful representation of the simplicial complex into Euclidean space, which is what we'd set out to do!
+\end{document}

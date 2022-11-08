@@ -1,0 +1,46 @@
+\documentclass{lec}
+\ifthenelse{\boolean{done}}{\usepackage{compalgtop}}{}
+\ifthenelse{\boolean{done}}{\setcounter{section}{1}}{}
+
+\begin{document}
+    \section{Defining simplicial complexes}
+
+    There's two ways into the theory of simplicial complexes (SCs): we can first give a definition and then how to construct them, or we can start building up a construction and then wrap a definition around it. Unusually for how I was expecting to do this, I think it's easier to do the former. This is because the construction depends on geometry -- not hard geometry, just placing points in $\R^n$, but I still find it easier to separately introduce the ideas of ``what is an SC?'' and ``how do we place SCs in space?'', even though we'll need to talk about both eventually. So we'll start with what these things even are, and then move on to how they interact with $\R^n$.
+
+    We're interested in making a simplicial complex because we want to describe some data and their interconnections: this whole group of points is clustered together, that whole group of points is clustered together, this one holds some meaning on its own and in a pair, and so on. So first we'll want to collect some points together into a set, which we'll call $V$ for vertices. Remember that we're not caring about geometry just yet, so we don't really care what the elements of $V$ actually \textit{are} -- they're just things without anything special about them that we care about. For convenience, I'll say they're the natural numbers $\set{1, 2, 3, \dots, n}$ up to some fixed maximum $n$ (so $V$ is a finite set). Just keep in mind they could be anything else.
+
+    Just the set $V$ isn't enough for any kind of structure, though -- we'll also need interconnections. We can write down some subsets of $V$ and say ``these are the things that are linked together in my simplicial complex''. So here's a possible definition.
+
+    \begin{wipdefinition}
+        A simplicial complex is a collection of subsets of a finite set.
+    \end{wipdefinition}
+
+    Sounds good, but let's question this a bit. Suppose I had $V = \set{1, 2, 3, 4}$ and I wanted to take the subset $K = \set{\set{2, 3, 4}}$ as the only set in my simplicial complex (we usually use $K$ for the simplicial complex). I now ask the question: according to $K$, are 2 and 3 related? On the one hand, they are, because they appear together in an element of $K$. On the other hand, if they were related, I'd expect to see $\set{2, 3}$ in $K$, and I don't. This seems ambiguous, which is the mark of a definition that needs a bit more workshopping.
+
+    To fix this, let's add a new requirement.
+
+    \begin{wipdefinition}
+        A simplicial complex $K$ is a collection of subsets of a finite set such that any subset of an element of $K$ is also in $K$.
+    \end{wipdefinition}
+
+    If we tried to make our example above, we'd now have $V = \set{1, 2, 3, 4}$ and \\ $K = \set{\set{2}, \set{3}, \set{4}, \set{2, 3}, \set{2, 4}, \set{3, 4}, \set{2, 3, 4}}$. This seems to capture the interrelationships much better, but it seems kind of weird that we've got the single elements $\set{2}, \set{3}, \set{4}$ and not $\set{1}$; if it's a natural consequence of our definition that single-element sets appear in our complex, then we should include all of them by default.
+
+    \begin{wipdefinition}
+        A simplicial complex $K$ is a collection of subsets of a finite set such that $K$ contains every single-element subset of the finite set, and any subset of an element of $K$ is also in $K$.
+    \end{wipdefinition}
+
+    Our simplicial complex from above is now $K = \set{\set{1}, \set{2}, \set{3}, \set{4}, \set{2, 3}, \set{2, 4}, \set{3, 4}, \set{2, 3, 4}}$.
+
+    This is better, but our phrasing's getting slightly awkward and we had to introduce $V$ without saying what it was. Let's fix these and write down the definition we'll actually use. One thing we can do is say $K$ is defined \textit{on} $V$, which basically means ``$K$ as a concept only makes sense in relation to the simpler thing $V$''; you see something similar with vector spaces being defined on or over fields. (For what follows, I'm going to avoid set notation and things like it as far as I can, since I don't think it's necessary here.)
+
+    \begin{definition}
+        A simplicial complex $K$ on a finite set $V$ is a non-empty collection of subsets of $V$ such that
+        \begin{itemize}
+            \item for each $v$ in $V$, $\set{v}$ is in $K$; and
+            \item if $\tau$ is in $K$, any nonempty subset of $\tau$ is also in $K$.
+        \end{itemize}
+    \end{definition}
+
+    The one thing I added there was ``non-empty'', just because mathematicians collectively decided the complex $K = \set{}$ wasn't very interesting or useful. Plus, according to our first rule, we have to include all single-element subsets of $V$, so the only way for an empty SC to exist would be if it were defined on the empty set $V = \set{}$, and that's even less interesting! These kinds of edge cases are generally included or excluded based on what's more convenient. If you start working with SCs, and realize it's not useful to always have to say ``let $K$ be a nonempty simplicial complex'', you might as well just say a SC is something that's definitionally not empty to begin with. Sometimes these things have a lot more to do with language, clarity, and ease of use than they do with any deep mathematical truth.
+
+\end{document}
